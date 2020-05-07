@@ -1,4 +1,75 @@
-<ul class="links">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SLAM Operator Suite</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <script
+    type="text/javascript"
+    src="/js/lib/dummy.js"
+    
+  ></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+      
+  </style>
+
+
+    <script>
+      const customConsole = (w) => {
+        const pushToConsole = (payload, type) => {
+          w.parent.postMessage({
+            console: {
+              payload: payload,
+              type:    type
+            }
+          }, "*")
+        }
+
+        w.onerror = (message, url, line, column) => {
+          // the line needs to correspond with the editor panel
+          // unfortunately this number needs to be altered every time this view is changed
+          line = line - 79
+          pushToConsole(`[${line}:${column}] ${message}`, "error")
+        }
+
+        w.console = (function(){
+          return {
+            log: (payload) => {
+              pushToConsole(payload, "log")
+            },
+            info: (payload) => {
+              pushToConsole(payload, "info")
+            },
+            warn: (payload) => {
+              pushToConsole(payload, "warn")
+            },
+            error: (payload) => {
+              pushToConsole(payload, "error")
+            },
+            system: (payload) => {
+              pushToConsole(payload, "system")
+            }
+          }
+        }())
+
+        console.system("☁️ Running fiddle")
+      }
+
+      if (window.parent){
+        customConsole(window)
+      }
+    </script>
+</head>
+<body>
+    <ul class="links">
   <li><a href="https://fcswat-us.aka.amazon.com/workflow/init"></a></li>
   <li><a href="https://packapp-web-na.aka.amazon.com/start/"></a></li>
   <li><a href="http://fcresearch-na.aka.amazon.com/GRR1/search"></a></li>
@@ -18,7 +89,12 @@
         Arial, Helvetica, sans-serif;">Step 1: Login to FC Menu <a href="https://fcmenu-iad-regionalized.corp.amazon.com/openid/login" rel="noopener noreferrer" target="_blank">Here</a></span></p>
 <p style="text-align: center;"><span style="font-family: Arial, Helvetica, sans-serif;">Step 2: Click <a id="open-all" href="#">Here</a> to Launch the SLAM App Suite</span></p>
 
-<script>
+
+  <!-- TODO: Missing CoffeeScript 2 -->
+
+  <script type="text/javascript">//<![CDATA[
+
+
 $(function() { // On DOM content ready...
     var hrefs = [];
 
@@ -32,4 +108,21 @@ $(function() { // On DOM content ready...
         }
     });
 });
-</script>
+
+
+
+  //]]></script>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: ""
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+</body>
